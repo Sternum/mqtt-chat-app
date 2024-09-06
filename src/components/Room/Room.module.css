@@ -1,0 +1,9 @@
+.container {
+    width: 200px;
+    height: 60px;
+    border: 1px solid wheat;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+}
