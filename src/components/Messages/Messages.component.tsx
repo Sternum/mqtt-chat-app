@@ -10,7 +10,7 @@ const MessagesComponent = ({topic}: MessagesComponentProps) => {
     const [messages, setMessages] = useState<string[]>([]);
 
     useEffect(() => {
-        const socket = io(`http://api.sternum.pl`, {
+        const socket = io(`${process.env.NEXT_PUBLIC_CHAT_URL}`, {
             query: {room: topic},
             transports: ['websocket']
         });

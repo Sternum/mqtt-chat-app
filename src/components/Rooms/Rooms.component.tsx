@@ -1,14 +1,15 @@
 'use client'
 import {useEffect, useState} from "react";
 import RoomComponent from "@/components/Room/Room.component";
+import styles from "./Rooms.module.css";
 
 const RoomsComponent = () => {
     const [rooms, setRooms] = useState<any[]>([]);
 
     useEffect(() => {
         getData();
-
-        const source= new EventSource("http://api.sternum.pl/rooms/room-created");
+        console.log(process.env.NEXT_PUBLIC_CHAT_URL);
+        const source= new EventSource(`${process.env.NEXT_PUBLIC_CHAT_URL}/rooms/room-created`);
         const updateRooms = (event: MessageEvent<any>) => {
 
             const data = JSON.parse(event.data);
@@ -23,14 +24,16 @@ const RoomsComponent = () => {
     }, []);
 
     const getData = async () => {
-        const response = await fetch("http://api.sternum.pl/rooms", {method: 'GET'});
+        const response = await fetch(`${process.env.NEXT_PUBLIC_CHAT_URL}/rooms`, {method: 'GET'});
         setRooms(await response.json());
     }
 
     return (
-        <div>
+        <div className={styles.body}>
             <h1>ROOMS</h1>
-            {rooms.map(room => <RoomComponent key={room.id} name={room.name} roomId={room.id} />)}
+            <div className={styles.container}>
+                {rooms.map(room => <RoomComponent key={room.id} name={room.name} roomId={room.id} />)}
+            </div>
         </div>
     )
 }

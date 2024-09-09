@@ -7,13 +7,15 @@ export interface PublishMessageFormComponentProps {
 }
 
 const PublishMessageFormComponent = ({topic}: PublishMessageFormComponentProps) => {
-    const publishMessageWithTopic = publishMessageAction.bind(null, topic);
 
     const ref = useRef<HTMLFormElement>(null);
 
     return(
         <div>
-            <form ref={ref} action={publishMessageWithTopic} on>
+            <form ref={ref} action={async (formData) => {
+                await publishMessageAction(topic, formData);
+                ref.current?.reset();
+            }}>
                 <input autoComplete="off" type="text" name="message"/>
             </form>
         </div>

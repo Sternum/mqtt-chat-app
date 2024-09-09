@@ -14,6 +14,6 @@ export const publishMessageAction = async (topic: string, formData: FormData) =>
         }
     }
 
-    await fetch("http://api.sternum.pl/chat/send", options);
+    await fetch(`${process.env.NEXT_PUBLIC_CHAT_URL}/chat/send`, options);
 
 }

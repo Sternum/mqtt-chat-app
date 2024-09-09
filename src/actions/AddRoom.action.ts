@@ -1,6 +1,4 @@
 'use server'
-import {json} from "stream/consumers";
-
 export const AddRoomAction = async (formData: FormData) => {
 
     const body = {
@@ -15,5 +13,5 @@ export const AddRoomAction = async (formData: FormData) => {
         }
     }
 
-    await fetch("http://api.sternum.pl/rooms", options);
+    await fetch(`${process.env.NEXT_PUBLIC_CHAT_URL}/rooms`, options);
 }
