@@ -1,6 +1,7 @@
 'use client'
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {io} from "socket.io-client";
+import {Socket} from "net";
 
 interface MessagesComponentProps {
     topic: string
@@ -15,15 +16,12 @@ const MessagesComponent = ({topic}: MessagesComponentProps) => {
             transports: ['websocket']
         });
 
-        socket.on("message", (msg) => {
-            const newMessages = [...messages, msg.message];
-            setMessages(newMessages);
-        })
+        socket.on("message", msg => setMessages(prev => [...prev, msg.message]));
 
         return () => {
             socket.close();
         }
-    }, [messages]);
+    }, []);
 
     return(
         <div>
