@@ -12,7 +12,7 @@ const MessagesComponent = ({topic}: MessagesComponentProps) => {
     useEffect(() => {
         const socket = io(`${process.env.NEXT_PUBLIC_CHAT_URL}`, {
             query: {room: topic},
-            transports: ['websocket']
+            transports: ['polling']
         });
 
         socket.on("message", (msg) => {
